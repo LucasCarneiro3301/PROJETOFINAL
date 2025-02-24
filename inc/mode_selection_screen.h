@@ -83,9 +83,9 @@ void bootloader_mode_screen(ssd1306_t *ssd) {
     reset_usb_boot(0,0); // Sai para o modo de gravação
 }
 
-void mode_selection_screen(ssd1306_t *ssd, bool color, double voltage, double current, double u, double volt_mode, unsigned short int screen, bool *stop) {
+void mode_selection_screen(ssd1306_t *ssd, bool color, double voltage, double current, double u, double volt_mode, unsigned short int screen, unsigned short int setpoint, bool *stop) {
     (screen==0) ? operation_mode_select(ssd) : (screen==1) ? simulation_mode_select(ssd, color, voltage, current, volt_mode, stop) : (screen==2) ? voltage_selection_mode_select(ssd, color, volt_mode) : 
-    (screen==3) ? bootloader_mode_select(ssd) : (screen==4) ? operating_mode(ssd, color, voltage, current, u, volt_mode) : (screen==5) ? simulator_mode(ssd, color, voltage, current, volt_mode, stop) : bootloader_mode_screen(ssd);
+    (screen==3) ? bootloader_mode_select(ssd) : (screen==4) ? operating_mode(ssd, color, voltage, current, u, volt_mode) : (screen==5) ? simulator_mode(ssd, color, voltage, current, volt_mode, stop, setpoint) : bootloader_mode_screen(ssd);
 }
 
 #endif

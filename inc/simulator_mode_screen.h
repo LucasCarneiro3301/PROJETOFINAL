@@ -11,9 +11,9 @@
 #define T 20e-6 // 1/50kHz
 #define NUM_ITERATIONS 500 // Número de iterações da simulação
 
-void simulator_mode(ssd1306_t *ssd, bool color, double voltage, double current, double volt_mode, bool *stop) {
+void simulator_mode(ssd1306_t *ssd, bool color, double voltage, double current, double volt_mode, bool *stop, unsigned short int setpoint) {
     char str[10];  // Buffer para armazenar a string
-    double x1 = current, x3 = T*(volt_mode-voltage), x2 = voltage, u = 1.7265e-3;
+    double x1 = current*setpoint, x3 = T*(volt_mode-voltage), x2 = voltage*setpoint, u = 1.7265e-3;
 
     if(!*stop) {
         printf("Tempo(s),x1,x2,u\n");

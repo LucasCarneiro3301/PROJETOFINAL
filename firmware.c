@@ -6,14 +6,11 @@
 
 unsigned short int screen = 0; // 0 (Tela de Seleção de Modo: Operação), 1 (Tela de Seleção de Modo: Simulação), 2 (Tela de Seleção de Modo: Seleção de Tensão) e 3 (Tela de Seleção de Modo: Gravação)
 unsigned short int option = 1; // 0 (modo 1.8 V), 1 (modo 3.3 V) e 2 (modo 5 V)
-bool confirmation = false;
-bool isActive = true; 
-bool reset = false;
+unsigned short int setpoint = 1;
 
 double volt_mode = 3.3;
 double voltage = 0.0;
 double current = 0.0;
-double error = 0.0;
 double u = 1.7265e-3; // Valores para u(0), sinal de controle
 
 static volatile uint32_t last_time = 0; // Armazena o tempo do último evento (em microssegundos)
@@ -53,7 +50,7 @@ int main() {
         }
 
         if(!(screen == 4)) pwm_set_gpio_level(BLUE, 0);
-        mode_selection_screen(&ssd, color, voltage, current, u, volt_mode, screen, &stop);
+        mode_selection_screen(&ssd, color, voltage, current, u, volt_mode, screen, setpoint, &stop);
     }
 }
 
@@ -69,7 +66,7 @@ uint16_t select_adc_channel(unsigned short int channel) {
 bool adc_read_timer(struct repeating_timer *t) {
     voltage = (select_adc_channel(1) * 7.0) / 4095.0; // Eixo X (0 - 4095).
     current = (select_adc_channel(0) * 1.0) / 4095.0; // Eixo Y (0 - 4095).
-    error = 20e-6*(volt_mode-voltage);
+    double error = 20e-6*(volt_mode-voltage);
     u = (voltage <= (volt_mode+volt_mode*0.1) && current <= (0.5+0.5*0.1)) ? -0.1273*current + 0.0725*voltage + 27.7076*error : 0.0;
     return true;
 }
@@ -84,14 +81,13 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
             ws2812('*');
             screen = (screen >= 0 && screen <= 3) ? (screen + 1)%4 : screen - 4;
         } else if(gpio == BTNJ) {
-            
+            if(screen == 1) {setpoint = 0;screen = screen + 4;}
         } else if(gpio == BTNB) {
+            setpoint = 1;
             if(screen==2) {
                 option = (option + 1)%3;
                 volt_mode = (option==0) ? 1.8 : (option==1) ? 3.3 : 5.0;
             } else if(screen >= 0 && screen <= 3) screen = screen + 4;
-            //(screen==0) ? printf("Modo de Operação!!!\n\n")  : (screen==1) ? printf("Modo de Simulação!!!\n\n") : (screen==2) ? printf("Modo de Seleção de Tensão!!!\n\n") : 
-            //(screen==3) ? printf("Modo de Gravação!!!\n\n") : ;
         }
     }
 }
