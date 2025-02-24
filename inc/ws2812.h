@@ -1,17 +1,12 @@
 /*
-    Aluno: Lucas Carneirod e Araújo Lima
+    Aluno: Lucas Carneiro de Araújo Lima
 */
 
-#ifndef SYMBOLS_H
-#define SYMBOLS_H
+#ifndef WS2812_H
+#define WS2812_H
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "pico/stdlib.h"
 #include "hardware/pio.h"
-#include "hardware/clocks.h"
-#include "pico/bootrom.h"
 #include <string.h>
 
 // Definição de tipo da estrutura que irá controlar a cor dos LED's
@@ -99,7 +94,7 @@ void symbol_framer(Led_Matrix* frame,Led_Matrix* base,float r, float g, float b,
     if(print) symbol_printing(frame); 
 }
 
-void symbols(char symbol) {
+void ws2812(char symbol) {
     Led_Matrix frame;
 
     if(symbol == '1') {
