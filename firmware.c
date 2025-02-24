@@ -2,15 +2,14 @@
     Aluno: Lucas Carneiro de Araújo Lima
 */
 
-#include "inc/mode_selection_screen.h"
+#include "inc/operating_mode.h"
 
-unsigned short int screen = 0; // 0 (Tela de Seleção de Modo: Operação), 1 (Tela de Seleção de Modo: Simulação), 2 (Tela de Seleção de Modo: Seleção de Tensão) e 3 (Tela de Seleção de Modo: Gravação)
-unsigned short int option = 1; // 0 (modo 1.8 V), 1 (modo 3.3 V) e 2 (modo 5 V)
+bool mode = true; // True (Modo de Execução) e False (Modo de Simulação)
+unsigned short int voltage_mode = 1; // 0 (modo 1.8 V), 1 (modo 3.3 V) e 2 (modo 5 V)
 bool confirmation = false;
 bool isActive = true; 
 bool reset = false;
 
-double volt_mode = 3.3;
 double voltage = 0.0;
 double current = 0.0;
 double error = 0.0;
@@ -25,16 +24,14 @@ int main() {
     ssd1306_t ssd;
     PIO pio = pio0;
     int sm = 0;
-    bool stop = false;
     bool color = true;
     struct repeating_timer timer; // Timer
-    bool timer_active = false;
     
     setup(&ssd,pio,sm);
 
     ws2812('*');
 
-    //add_repeating_timer_us(20, adc_read_timer, NULL, &timer); // Inicializa o temporizador periódico que chama o callback a cada 20 us
+    add_repeating_timer_us(20, adc_read_timer, NULL, &timer); // Inicializa o temporizador periódico que chama o callback a cada 20 us
     
     gpio_set_irq_enabled_with_callback(BTNJ, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); //Callback de interrupção do Botão do Joystick
     gpio_set_irq_enabled_with_callback(BTNA, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); //Callback de interrupção do Botão A
@@ -44,16 +41,18 @@ int main() {
     uint slice_red = pwm_gpio_to_slice_num(RED); // Slice PWM do pino 13
 
     while (true) {
-        if ((screen == 1 || screen == 4) && !timer_active) {
-            add_repeating_timer_us(20, adc_read_timer, NULL, &timer);
-            timer_active = true;
-        } else if (!(screen == 1 || screen == 4 || screen == 5) && timer_active) {
-            cancel_repeating_timer(&timer);
-            timer_active = false;
-        }
+        if(!reset) {
+            if(mode) operating_mode(&ssd, color, voltage, current, u, voltage_mode, isActive);
+        } else {
+            printf("Saindo para o modo de gravação...\n\n");
 
-        if(!(screen == 4)) pwm_set_gpio_level(BLUE, 0);
-        mode_selection_screen(&ssd, color, voltage, current, u, volt_mode, screen, &stop);
+            ssd1306_fill(&ssd, false); // Limpa a tela
+            ssd1306_draw_string(&ssd, "MODO DE", 28, 28); 
+            ssd1306_draw_string(&ssd, "GRAVACAO", 24, 40);
+            ssd1306_send_data(&ssd); // Envia os dados para o display
+
+            reset_usb_boot(0,0); // Sai para o modo de gravação
+        }
     }
 }
 
@@ -67,10 +66,18 @@ uint16_t select_adc_channel(unsigned short int channel) {
 
 // Rotina de temporização. A cada 20 us é lido o valor analogico do joystick
 bool adc_read_timer(struct repeating_timer *t) {
-    voltage = (select_adc_channel(1) * 7.0) / 4095.0; // Eixo X (0 - 4095).
+    voltage = (select_adc_channel(1) * 12.0) / 4095.0; // Eixo X (0 - 4095).
     current = (select_adc_channel(0) * 1.0) / 4095.0; // Eixo Y (0 - 4095).
-    error = 20e-6*(volt_mode-voltage);
-    u = (voltage <= (volt_mode+volt_mode*0.1) && current <= (0.5+0.5*0.1)) ? -0.1273*current + 0.0725*voltage + 27.7076*error : 0.0;
+    if(voltage_mode==0) {
+        error = 20e-6*(1.8-voltage);
+        u = (voltage <= (1.8+1.8*0.1) && current <= (0.5+0.5*0.1)) ? -0.1273*current + 0.0725*voltage + 27.7076*error : 0.0;
+    } else if(voltage_mode==1) {
+        error = 20e-6*(3.3-voltage);
+        u = (voltage <= (3.3+3.3*0.1) && current <= (0.5+0.5*0.1)) ? -0.1499*current + 0.0650*voltage + 27.5408*error : 0.0;
+    } else if(voltage_mode==2) {
+        error = 20e-6*(5-voltage);
+        u = (voltage <= (5+5*0.1) && current <= (0.5+0.5*0.1)) ? -0.1592*current + 0.0611*voltage + 27.4729*error : 0;
+    }
     return true;
 }
 
@@ -81,17 +88,19 @@ void gpio_irq_handler(uint gpio, uint32_t events) {
     if (current_time - last_time > 2e5) { // 200 ms de debouncing
         last_time = current_time; 
         if(gpio == BTNA) {
-            ws2812('*');
-            screen = (screen >= 0 && screen <= 3) ? (screen + 1)%4 : screen - 4;
+            voltage_mode = (voltage_mode + 1)%3;
+            if(voltage_mode==0) printf("Modo de Tensão 1.8 V!!!\n\n");
+            else if(voltage_mode==1) printf("Modo de Tensão 3.3 V!!!\n\n");
+            else if(voltage_mode==2) printf("Modo de Tensão 5 V!!!\n\n");
         } else if(gpio == BTNJ) {
-            
+            mode = !mode;
+            (mode) ? printf("Modo de Execução!!!\n\n")  : printf("Modo de Simulação!!!\n\n");
+            reset = true;
         } else if(gpio == BTNB) {
-            if(screen==2) {
-                option = (option + 1)%3;
-                volt_mode = (option==0) ? 1.8 : (option==1) ? 3.3 : 5.0;
-            } else if(screen >= 0 && screen <= 3) screen = screen + 4;
-            //(screen==0) ? printf("Modo de Operação!!!\n\n")  : (screen==1) ? printf("Modo de Simulação!!!\n\n") : (screen==2) ? printf("Modo de Seleção de Tensão!!!\n\n") : 
-            //(screen==3) ? printf("Modo de Gravação!!!\n\n") : ;
+            if(!mode) confirmation = true;
+            else {
+                isActive=!isActive;
+            }
         }
     }
 }
