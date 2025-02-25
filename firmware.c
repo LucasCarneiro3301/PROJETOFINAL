@@ -67,7 +67,8 @@ bool adc_read_timer(struct repeating_timer *t) {
     voltage = (select_adc_channel(1) * 7.0) / 4095.0; // Eixo X (0 - 4095).
     current = (select_adc_channel(0) * 1.0) / 4095.0; // Eixo Y (0 - 4095).
     double error = 20e-6*(volt_mode-voltage);
-    u = (voltage <= (volt_mode+volt_mode*0.1) && current <= (0.5+0.5*0.1)) ? -0.1273*current + 0.0725*voltage + 27.7076*error : 0.0;
+    double a[3] = {((volt_mode==5.0) ? 0.15918 : (volt_mode==3.3) ? 0.14995 : 0.12732), ((volt_mode==5.0) ? 0.061113 : (volt_mode==3.3) ? 0.064964 : 0.072473), ((volt_mode==5.0) ? 27.473 : (volt_mode==3.3) ? 27.541 : 27.708)};
+    u = (voltage <= (volt_mode+volt_mode*0.1) && current <= (0.5+0.5*0.1)) ? -a[0]*current + a[1]*voltage + a[2]*error : 0.0;
     return true;
 }
 
