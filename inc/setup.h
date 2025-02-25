@@ -29,7 +29,6 @@
 #define BTNJ 22 // Botão do joystick
 #define BTNA 5 // Botão A
 #define BTNB 6 // Botão B
-#define RED 13 // LED vermelho
 #define BLUE 12 // LED azul
 #define GREEN 11 // LED verde
 #define WS2812_PIN 7 // Matriz de LEDs 5x5
@@ -48,12 +47,8 @@
 #define WRAP 2499 // Wrap
 #define DIV 1 // Divisor inteiro
 
-// Inicializa e configura os LEDs RGB como saída. Inicializa e configura os botões como entradas.
+// Inicializa e configura os botões como entradas.
 void io_setup() {
-    gpio_init(GREEN);
-    gpio_set_dir(GREEN, GPIO_OUT);
-    gpio_put(GREEN,false);
-  
     gpio_init(BTNA);
     gpio_set_dir(BTNA, GPIO_IN);
     gpio_pull_up(BTNA);  
@@ -105,28 +100,28 @@ void ws2812_setup(PIO pio, uint sm) {
     ws2812_program_init(pio, sm, offset, WS2812_PIN, 800000, IS_RGBW); //Inicializa a matriz de leds
   }
 
-// Inicializa e configura os pinos 13 e 12 como PWM
+// Inicializa e configura os pinos 11 e 12 como PWM
 void pwm_setup() {
     gpio_set_function(BLUE, GPIO_FUNC_PWM); // Define o pino como PWM
-    gpio_set_function(RED, GPIO_FUNC_PWM); // Define o pino como PWM
+    gpio_set_function(GREEN, GPIO_FUNC_PWM); // Define o pino como PWM
 
     uint slice_blue = pwm_gpio_to_slice_num(BLUE); // Obtém o slice
-    uint slice_red = pwm_gpio_to_slice_num(RED); // Obtém o slice
+    uint slice_GREEN = pwm_gpio_to_slice_num(GREEN); // Obtém o slice
     
     pwm_set_clkdiv(slice_blue, DIV); // Define o divisor inteiro de clock
     pwm_set_wrap(slice_blue, WRAP); // Define o wrap
     pwm_set_enabled(slice_blue, true);
 
-    pwm_set_clkdiv(slice_red, DIV); // Define o divisor inteiro de clock
-    pwm_set_wrap(slice_red, WRAP); // Define o wrap
-    pwm_set_enabled(slice_red, true);
+    pwm_set_clkdiv(slice_GREEN, DIV); // Define o divisor inteiro de clock
+    pwm_set_wrap(slice_GREEN, WRAP); // Define o wrap
+    pwm_set_enabled(slice_GREEN, true);
     
 }
 
 void setup(ssd1306_t *ssd, PIO pio, int sm) {
     stdio_init_all(); // Inicialização dos recursos de entrada e saída padrão
     adc_setup(); // Inicialização e configuração dos pinos ADC
-    io_setup(); // Inicialização e configuração dos LEDs e botões 
+    io_setup(); // Inicialização e configuração dos botões 
     i2c_setup(); // Inicialização e configuração da comunicação serial I2C 
     pwm_setup(); // Inicialização e configuração do PWM
     ssd1306_setup(ssd); // Inicializa a estrutura do display
