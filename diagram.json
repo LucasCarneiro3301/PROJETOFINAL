@@ -1,0 +1,280 @@
+{
+    "version": 1,
+    "author": "Lucas Carneiro de Araújo Lima",
+    "editor": "wokwi",
+    "parts": [
+      { "type": "wokwi-breadboard-half", "id": "bb2", "top": 227.4, "left": 156.4, "attrs": {} },
+      {
+        "type": "board-pi-pico-w",
+        "id": "pico",
+        "top": 361.55,
+        "left": -25.25,
+        "attrs": { "builder": "pico-sdk" }
+      },
+      {
+        "type": "wokwi-pushbutton",
+        "id": "btn1",
+        "top": 399.8,
+        "left": -268.8,
+        "attrs": { "color": "black" }
+      },
+      {
+        "type": "wokwi-analog-joystick",
+        "id": "joystick1",
+        "top": 467.3,
+        "left": 465.1,
+        "rotate": 90,
+        "attrs": {}
+      },
+      {
+        "type": "board-ssd1306",
+        "id": "oled1",
+        "top": 108.74,
+        "left": -47.77,
+        "attrs": { "i2cAddress": "0x3c" }
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb1",
+        "top": 205.3,
+        "left": -58.4,
+        "rotate": 180,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb2",
+        "top": 205.3,
+        "left": -29.6,
+        "rotate": 180,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb3",
+        "top": 205.3,
+        "left": -0.8,
+        "rotate": 180,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb4",
+        "top": 205.3,
+        "left": 28,
+        "rotate": 180,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb5",
+        "top": 205.3,
+        "left": 56.8,
+        "rotate": 180,
+        "attrs": {}
+      },
+      { "type": "wokwi-neopixel", "id": "rgb6", "top": 234.1, "left": -58.4, "attrs": {} },
+      { "type": "wokwi-neopixel", "id": "rgb7", "top": 234.1, "left": -29.6, "attrs": {} },
+      { "type": "wokwi-neopixel", "id": "rgb8", "top": 234.1, "left": -0.8, "attrs": {} },
+      { "type": "wokwi-neopixel", "id": "rgb9", "top": 234.1, "left": 28, "attrs": {} },
+      { "type": "wokwi-neopixel", "id": "rgb10", "top": 234.1, "left": 56.8, "attrs": {} },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb11",
+        "top": 262.9,
+        "left": -58.4,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb12",
+        "top": 262.9,
+        "left": -29.6,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb13",
+        "top": 262.9,
+        "left": -0.8,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb14",
+        "top": 262.9,
+        "left": 28,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb15",
+        "top": 262.9,
+        "left": 56.8,
+        "rotate": 270,
+        "attrs": {}
+      },
+      { "type": "wokwi-neopixel", "id": "rgb16", "top": 291.7, "left": -58.4, "attrs": {} },
+      { "type": "wokwi-neopixel", "id": "rgb17", "top": 291.7, "left": -29.6, "attrs": {} },
+      { "type": "wokwi-neopixel", "id": "rgb18", "top": 291.7, "left": -0.8, "attrs": {} },
+      { "type": "wokwi-neopixel", "id": "rgb19", "top": 294.1, "left": 27.8, "attrs": {} },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb21",
+        "top": 320.5,
+        "left": -58.4,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb22",
+        "top": 320.5,
+        "left": -29.6,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb23",
+        "top": 320.5,
+        "left": -0.8,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb24",
+        "top": 320.5,
+        "left": 28,
+        "rotate": 270,
+        "attrs": {}
+      },
+      {
+        "type": "wokwi-neopixel",
+        "id": "rgb25",
+        "top": 320.5,
+        "left": 56.8,
+        "rotate": 270,
+        "attrs": {}
+      },
+      { "type": "wokwi-neopixel", "id": "rgb20", "top": 294.1, "left": 56.6, "attrs": {} },
+      {
+        "type": "wokwi-rgb-led",
+        "id": "rgb26",
+        "top": 619.2,
+        "left": 360.9,
+        "rotate": 90,
+        "attrs": { "common": "cathode" }
+      },
+      {
+        "type": "wokwi-resistor",
+        "id": "r1",
+        "top": 647.45,
+        "left": 267.4,
+        "rotate": 180,
+        "attrs": { "value": "1000" }
+      },
+      {
+        "type": "wokwi-text",
+        "id": "text1",
+        "top": 374.4,
+        "left": -268.8,
+        "attrs": { "text": "Botão A" }
+      },
+      {
+        "type": "wokwi-text",
+        "id": "text2",
+        "top": 460.8,
+        "left": -259.2,
+        "attrs": { "text": "Botão B" }
+      },
+      {
+        "type": "wokwi-pushbutton",
+        "id": "btn2",
+        "top": 486.2,
+        "left": -268.8,
+        "attrs": { "color": "black" }
+      },
+      {
+        "type": "wokwi-text",
+        "id": "text3",
+        "top": 643.2,
+        "left": 393.6,
+        "rotate": 90,
+        "attrs": { "text": "LED RGB" }
+      },
+      {
+        "type": "wokwi-text",
+        "id": "text4",
+        "top": 518.4,
+        "left": 556.8,
+        "rotate": 90,
+        "attrs": { "text": "JOYSTICK" }
+      },
+      {
+        "type": "wokwi-text",
+        "id": "text5",
+        "top": 134.4,
+        "left": 67.2,
+        "attrs": { "text": "DISPLAY" }
+      },
+      { "type": "wokwi-text", "id": "text6", "top": 240, "left": 86.4, "attrs": { "text": "5X5" } }
+    ],
+    "connections": [
+      [ "pico:GP0", "$serialMonitor:RX", "", [] ],
+      [ "pico:GP1", "$serialMonitor:TX", "", [] ],
+      [ "rgb1:DOUT", "rgb2:DIN", "blue", [ "h0" ] ],
+      [ "rgb2:DOUT", "rgb3:DIN", "blue", [ "h0" ] ],
+      [ "rgb3:DOUT", "rgb4:DIN", "blue", [ "h0" ] ],
+      [ "rgb4:DOUT", "rgb5:DIN", "blue", [ "h0" ] ],
+      [ "rgb5:DOUT", "rgb10:DIN", "blue", [ "h0" ] ],
+      [ "rgb10:DOUT", "rgb9:DIN", "blue", [ "h0" ] ],
+      [ "rgb9:DOUT", "rgb8:DIN", "blue", [ "h0" ] ],
+      [ "rgb8:DOUT", "rgb7:DIN", "blue", [ "h0" ] ],
+      [ "rgb7:DOUT", "rgb6:DIN", "blue", [ "h0" ] ],
+      [ "rgb6:DOUT", "rgb11:DIN", "blue", [ "h0" ] ],
+      [ "rgb11:DOUT", "rgb12:DIN", "blue", [ "v0" ] ],
+      [ "rgb12:DOUT", "rgb13:DIN", "blue", [ "v0" ] ],
+      [ "rgb13:DOUT", "rgb14:DIN", "blue", [ "v0" ] ],
+      [ "rgb14:DOUT", "rgb15:DIN", "blue", [ "v0" ] ],
+      [ "rgb20:DOUT", "rgb19:DIN", "blue", [ "h0" ] ],
+      [ "rgb19:DOUT", "rgb18:DIN", "blue", [ "h0" ] ],
+      [ "rgb18:DOUT", "rgb17:DIN", "blue", [ "h0" ] ],
+      [ "rgb17:DOUT", "rgb16:DIN", "blue", [ "h0" ] ],
+      [ "rgb16:DOUT", "rgb21:DIN", "blue", [ "h0" ] ],
+      [ "rgb21:DOUT", "rgb22:DIN", "blue", [ "v0" ] ],
+      [ "rgb22:DOUT", "rgb23:DIN", "blue", [ "v0" ] ],
+      [ "rgb23:DOUT", "rgb24:DIN", "blue", [ "v0" ] ],
+      [ "rgb24:DOUT", "rgb25:DIN", "blue", [ "v0" ] ],
+      [ "rgb15:DOUT", "rgb20:DIN", "blue", [ "v0" ] ],
+      [ "rgb26:COM", "r1:1", "gray", [ "v0" ] ],
+      [ "bb2:bp.1", "pico:3V3", "red", [ "v0" ] ],
+      [ "bb2:bn.25", "bb2:tn.25", "black", [ "v-1.3", "h1.6", "v-172.7" ] ],
+      [ "oled1:GND", "bb2:tn.1", "black", [ "v-28.8", "h259.2" ] ],
+      [ "oled1:VCC", "bb2:tp.2", "red", [ "v-19.2", "h9.75" ] ],
+      [ "oled1:SDA", "pico:GP14", "cyan", [ "v-38.4", "h-86.33", "v460.8" ] ],
+      [ "pico:GP15", "oled1:SCL", "cyan", [ "h-57.6", "v-489.56", "h67.2" ] ],
+      [ "rgb1:DIN", "pico:GP7", "blue", [ "h-47.2", "v240" ] ],
+      [ "btn1:2.r", "pico:GP5", "green", [ "h0" ] ],
+      [ "btn1:1.r", "bb2:bn.2", "black", [ "h67.4", "v163.2", "h334.4" ] ],
+      [ "joystick1:GND", "bb2:bn.4", "black", [ "h-240", "v-123.5" ] ],
+      [ "pico:GP22", "joystick1:SEL", "purple", [ "h259.51", "v57.6" ] ],
+      [ "pico:GP26", "joystick1:VERT", "orange", [ "h269.11", "v57.6" ] ],
+      [ "joystick1:HORZ", "pico:GP27", "gold", [ "h-134.4", "v-76.8" ] ],
+      [ "pico:GP13", "rgb26:R", "red", [ "h-67.2", "v115.24", "h230.4" ] ],
+      [ "pico:GP11", "rgb26:G", "limegreen", [ "h-76.8", "v163.2", "h412.8", "v-10.9" ] ],
+      [ "pico:GND.1", "bb2:bn.1", "black", [ "h-28.8", "v220.8", "h238.4" ] ],
+      [ "bb2:bp.24", "bb2:tp.24", "red", [ "v0" ] ],
+      [ "rgb26:B", "pico:GP12", "blue", [ "v20.8", "h-489.6", "v-172.8", "h96" ] ],
+      [ "r1:2", "bb2:bn.5", "black", [ "v0", "h-18" ] ],
+      [ "joystick1:VCC", "bb2:bp.17", "red", [ "h0" ] ],
+      [ "btn2:1.r", "bb2:bn.3", "black", [ "v0", "h57.8", "v86.4", "h355.2" ] ],
+      [ "btn2:2.r", "pico:GP6", "green", [ "h77", "v-67" ] ]
+    ],
+    "dependencies": {}
+  }
