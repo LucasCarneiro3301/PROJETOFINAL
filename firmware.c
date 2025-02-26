@@ -45,7 +45,7 @@ int main() {
         if ((screen == 1 || screen == 4) && !timer_active) {
             add_repeating_timer_us(20, adc_read_timer, NULL, &timer); // Temporização de 20 us. Lê os valores dos eixos do analógico
             timer_active = true;
-        } else if (!(screen == 1 || screen == 4 || screen == 5) && timer_active) {
+        } else if (!(screen == 1 || screen == 4) && timer_active) {
             cancel_repeating_timer(&timer); // Desativa a temporização
             timer_active = false;
         }
