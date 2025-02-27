@@ -22,7 +22,7 @@ __Para este trabalho, os seguintes componentes e ferramentas se fazem necessári
 7) Ferramenta educacional BitDogLab.
 8) Matriz de LEDs 5x5
 
-__O resultado do projeto pode ser assistido através deste link: [U4C8 - Conversores A/D](https://youtu.be/-R63UTq61SA).__
+__O resultado do projeto pode ser assistido através deste link: [Projeto de Sistema Embarcado](https://youtu.be/-R63UTq61SA).__
 
 ## Instruções de Uso
 
