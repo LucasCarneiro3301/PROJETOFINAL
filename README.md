@@ -1,4 +1,4 @@
-# PROJETOFINAL
+# PROJETO FINAL
 Repositório para a atividade da unidade 7 e capítulo 1:  Projeto de Sistema Embarcado
 
 __Aluno:__
@@ -78,3 +78,15 @@ O programa implementa interrupção nos botões A, B e Joystick. Dessa forma, n�
 ### 7. Deboucing
 
 O programa implementa tratamento de _boucing_ (via _software_). Dessa forma, evita leituras falsas de botões causadas por oscilações elétricas, garantindo que cada pressionamento seja registrado apenas uma vez
+
+### 8. Matriz 5x5
+
+A matriz de LEDs exibe alertas visuais no sistema. Quando a tensão ou a corrente ultrapassa os limites máximos estabelecidos, um ‘X’ vermelho aparece na matriz, indicando uma falha e que o PWM foi desativado. Esse alerta reforça a segurança do sistema ao informar o usuário sobre condições anômalas.
+
+### 9. Temporização
+
+A temporização garante que as leituras dos valores analógicos do joystick ocorram periodicamente a cada 20 µs. Isso permite a atualização contínua dos valores de tensão e corrente, possibilitando o cálculo do erro e a aplicação do controle discreto.
+
+### 10. Monitorador Serial (Executável)
+
+O executável Monitorador Serial recebe os dados enviados pelo Modo de Simulação via conexão USB e os processa para visualização. Ele captura valores de amostra, tensão, corrente e ciclo de trabalho em formato CSV, permitindo ao usuário copiar os dados e gerar gráficos. Além disso, o monitorador gera automaticamente gráficos de evolução dos sinais, facilitando a análise do comportamento do sistema ao longo do tempo.
